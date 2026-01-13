@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 #define TINY_RATIO 32
-#define SMALL_MAX 1024
+#define SMALL_RATIO 4
 #define MIN_ALLOC_COUNT 100
 
 size_t get_tiny_max(void);
