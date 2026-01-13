@@ -1,0 +1,21 @@
+[
+  {
+    "file": "srcs/chunk_utils.c",
+    "arguments": [
+      "clang",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fPIC",
+      "-std=c11",
+      "-I./includes",
+      "-I./libft/includes",
+      "-c",
+      "srcs/chunk_utils.c",
+      "-o",
+      "objs/chunk_utils.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
+    "output": "objs/chunk_utils.o"
+  }
+]

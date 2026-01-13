@@ -1,0 +1,7 @@
+*.so
+*.obj
+*.o
+objs/
+.cache/
+.vscode/
+test_prog

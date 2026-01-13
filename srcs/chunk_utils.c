@@ -1,0 +1,31 @@
+#include "chunk_utils.h"
+
+static size_t get_system_page_size() {
+    static size_t page_size = 0;
+
+    if (page_size > 0)
+        return page_size;
+
+    #ifdef __APPLE__
+    page_size = (size_t)getpagesize();
+    #else
+    page_size = (size_t)sysconf(_SC_PAGESIZE);
+    #endif
+
+    return page_size;
+}
+
+size_t get_tiny_max() {
+    static size_t tiny = 0;
+    if (tiny == 0)
+        tiny = get_system_page_size() / TINY_RATIO;
+    return tiny;
+}
+
+size_t get_zone_size(size_t max_type_size) {
+    size_t page_size = get_system_page_size();
+    size_t header_size = sizeof(void*); // change this when i'll have my header struct
+    size_t needed = (max_type_size + header_size) * MIN_ALLOC_COUNT;
+
+    return 0;
+}
