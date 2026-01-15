@@ -1,6 +1,7 @@
 *.so
 *.obj
 *.o
+*.a
 objs/
 .cache/
 .vscode/
