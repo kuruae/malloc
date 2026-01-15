@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <unistd.h>
 
+// (page size / ratio) * min_alloc_count = size of the chunk
 #define TINY_RATIO 32
 #define SMALL_RATIO 4
 #define MIN_ALLOC_COUNT 100

@@ -8,6 +8,12 @@
 
 #define ALIGNMENT alignof(max_align_t)
 
+typedef struct __attribute__((aligned(ALIGNMENT))) {
+    struct t_header *next;
+    size_t          size;
+    int             free;
+} t_header;
+
 void *malloc(size_t size);
 
 #endif

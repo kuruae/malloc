@@ -27,9 +27,9 @@ size_t get_small_max() {
     if (small == 0)
         small = get_system_page_size() / SMALL_RATIO;
     return small;
-    }
+}
 
-    /**
+/**
  * @brief Calculates the aligned zone size for a memory pool.
  *
  * Computes the total size needed for a memory zone that can hold at least
