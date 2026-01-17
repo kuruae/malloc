@@ -8,12 +8,47 @@
 
 #define ALIGNMENT alignof(max_align_t)
 
-typedef struct __attribute__((aligned(ALIGNMENT))) {
-    struct t_header *next;
-    size_t          size;
-    int             free;
-} t_header;
+/**
+ * Zone types for categorizing allocations
+ */
+typedef enum e_zone_type {
+    ZONE_TINY,
+    ZONE_SMALL,
+    ZONE_LARGE
+} t_zone_type;
 
-void *malloc(size_t size);
+/**
+ * Tracks zone metadata and links zones together
+ */
+typedef struct s_zone_header {
+    struct s_zone_header    *next;
+    size_t                  zone_size;
+    t_zone_type             type;
+} __attribute__((aligned(ALIGNMENT))) t_zone_header;
+
+/**
+ * Tracks individual allocations and their status
+ */
+typedef struct s_chunk_header {
+    struct s_chunk_header   *next;
+    size_t                  size;
+    int                     free;
+} __attribute__((aligned(ALIGNMENT))) t_chunk_header;
+
+/**
+ * Holds pointers to all zone lists
+ */
+typedef struct s_zones {
+    t_zone_header   *tiny;
+    t_zone_header   *small;
+    t_zone_header   *large;
+} t_zones;
+
+extern t_zones g_zones;
+
+
+void    *malloc(size_t size);
+void    free(void *ptr);
+void    *realloc(void *ptr, size_t size);
 
 #endif

@@ -1,6 +1,7 @@
-#include "chunk_utils.h"
+#include "alloc.h"
+#include "size_utils.h"
 
-static size_t get_system_page_size() {
+size_t get_system_page_size() {
     static size_t page_size = 0;
 
     if (page_size > 0)
@@ -43,7 +44,7 @@ size_t get_small_max() {
  */
 size_t get_zone_size(size_t max_type_size) {
     size_t page_size = get_system_page_size();
-    size_t header_size = sizeof(void*); // change this when i'll have my header struct
+    size_t header_size = sizeof(t_zone_header) + sizeof(t_chunk_header);
     size_t needed = (max_type_size + header_size) * MIN_ALLOC_COUNT;
 
     return (needed + (page_size - 1)) & ~(page_size - 1);

@@ -1,6 +1,6 @@
 [
   {
-    "file": "srcs/chunk_utils.c",
+    "file": "srcs/malloc.c",
     "arguments": [
       "clang",
       "-Wall",
@@ -11,11 +11,49 @@
       "-I./includes",
       "-I./libft/includes",
       "-c",
-      "srcs/chunk_utils.c",
+      "srcs/malloc.c",
       "-o",
-      "objs/chunk_utils.o"
+      "objs/malloc.o"
     ],
     "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
-    "output": "objs/chunk_utils.o"
+    "output": "objs/malloc.o"
+  },
+  {
+    "file": "srcs/size_utils.c",
+    "arguments": [
+      "clang",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fPIC",
+      "-std=c11",
+      "-I./includes",
+      "-I./libft/includes",
+      "-c",
+      "srcs/size_utils.c",
+      "-o",
+      "objs/size_utils.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
+    "output": "objs/size_utils.o"
+  },
+  {
+    "file": "srcs/zones.c",
+    "arguments": [
+      "clang",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fPIC",
+      "-std=c11",
+      "-I./includes",
+      "-I./libft/includes",
+      "-c",
+      "srcs/zones.c",
+      "-o",
+      "objs/zones.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
+    "output": "objs/zones.o"
   }
 ]
