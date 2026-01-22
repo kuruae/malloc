@@ -1,8 +1,7 @@
 [
   {
-    "file": "srcs/malloc.c",
     "arguments": [
-      "clang",
+      "/opt/homebrew/opt/llvm/bin/clang",
       "-Wall",
       "-Wextra",
       "-Werror",
@@ -11,17 +10,17 @@
       "-I./includes",
       "-I./libft/includes",
       "-c",
-      "srcs/malloc.c",
       "-o",
-      "objs/malloc.o"
+      "objs/malloc.o",
+      "srcs/malloc.c"
     ],
-    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
-    "output": "objs/malloc.o"
+    "directory": "/Users/enzo/42/post-cc/malloc",
+    "file": "/Users/enzo/42/post-cc/malloc/srcs/malloc.c",
+    "output": "/Users/enzo/42/post-cc/malloc/objs/malloc.o"
   },
   {
-    "file": "srcs/size_utils.c",
     "arguments": [
-      "clang",
+      "/opt/homebrew/opt/llvm/bin/clang",
       "-Wall",
       "-Wextra",
       "-Werror",
@@ -30,17 +29,17 @@
       "-I./includes",
       "-I./libft/includes",
       "-c",
-      "srcs/size_utils.c",
       "-o",
-      "objs/size_utils.o"
+      "objs/size_utils.o",
+      "srcs/size_utils.c"
     ],
-    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
-    "output": "objs/size_utils.o"
+    "directory": "/Users/enzo/42/post-cc/malloc",
+    "file": "/Users/enzo/42/post-cc/malloc/srcs/size_utils.c",
+    "output": "/Users/enzo/42/post-cc/malloc/objs/size_utils.o"
   },
   {
-    "file": "srcs/zones.c",
     "arguments": [
-      "clang",
+      "/opt/homebrew/opt/llvm/bin/clang",
       "-Wall",
       "-Wextra",
       "-Werror",
@@ -49,11 +48,12 @@
       "-I./includes",
       "-I./libft/includes",
       "-c",
-      "srcs/zones.c",
       "-o",
-      "objs/zones.o"
+      "objs/zones.o",
+      "srcs/zones.c"
     ],
-    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
-    "output": "objs/zones.o"
+    "directory": "/Users/enzo/42/post-cc/malloc",
+    "file": "/Users/enzo/42/post-cc/malloc/srcs/zones.c",
+    "output": "/Users/enzo/42/post-cc/malloc/objs/zones.o"
   }
 ]

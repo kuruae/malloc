@@ -30,18 +30,7 @@ size_t get_small_max() {
     return small;
 }
 
-/**
- * @brief Calculates the aligned zone size for a memory pool.
- *
- * Computes the total size needed for a memory zone that can hold at least
- * MIN_ALLOC_COUNT allocations of the specified type size
- *
- * @param max_type_size Max size of objects that will be allocated in this zone
- * @return Size of the zone in bytes, aligned to system page size
- *
- * @note The returned size includes space for headers
- * @note Result is always a multiple of the system page size for efficient mmap usage
- */
+// Calculates page-aligned zone size for MIN_ALLOC_COUNT allocations of max_type_size
 size_t get_zone_size(size_t max_type_size) {
     size_t page_size = get_system_page_size();
     size_t header_size = sizeof(t_zone_header) + sizeof(t_chunk_header);

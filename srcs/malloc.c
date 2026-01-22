@@ -1,15 +1,9 @@
 #include "alloc.h"
+#include "ft_printf.h"
 #include "size_utils.h"
 #include "zones.h"
 
-/**
- * @brief Calculates total size needed for a large allocation
- *
- * Includes zone header + chunk header + user data, aligned to page size.
- *
- * @param size Requested user data size
- * @return Total mmap size needed
- */
+// Returns total mmap size for large allocation (zone + chunk + data, page-aligned)
 static size_t get_large_alloc_size(size_t size) {
     size_t total = sizeof(t_zone_header) + sizeof(t_chunk_header) + size;
     size_t page_size = get_system_page_size();
@@ -17,14 +11,7 @@ static size_t get_large_alloc_size(size_t size) {
     return (total + (page_size - 1)) & ~(page_size - 1);
 }
 
-/**
- * @brief Allocates a large block (> SMALL threshold)
- *
- * Each large allocation gets its own mmap'd zone.
- *
- * @param size Requested size
- * @return Pointer to user data, or NULL on failure
- */
+// Allocates large block in dedicated mmap'd zone
 static void *alloc_large(size_t size) {
     size_t zone_size = get_large_alloc_size(size);
 
@@ -42,23 +29,11 @@ static void *alloc_large(size_t size) {
     return get_ptr_from_chunk(chunk);
 }
 
-/** 
- * @brief Allocates memory from tiny zone (TODO)
- *
- * @param size Requested size
- * @return Pointer to user data, or NULL on failure
- */
 static void *alloc_tiny(size_t size) {
     (void)size;
     return NULL;
 }
 
-/**
- * @brief Allocates memory from small zone (TODO)
- *
- * @param size Requested size
- * @return Pointer to user data, or NULL on failure
- */
 static void *alloc_small(size_t size) {
     (void)size;
     return NULL;
@@ -79,6 +54,7 @@ void *malloc(size_t size) {
     if (size == 0)
         return NULL;
 
+    ft_printf("entered malloc!\n");
     if (size <= get_tiny_max())
         return alloc_tiny(size);
     else if (size <= get_small_max())
@@ -87,23 +63,11 @@ void *malloc(size_t size) {
         return alloc_large(size);
 }
 
-/**
- * @brief Frees allocated memory
- *
- * @param ptr Pointer to memory to free
- */
 void free(void *ptr) {
     (void)ptr;
     // TODO
 }
 
-/**
- * @brief Reallocates memory to a new size (TODO)
- *
- * @param ptr Pointer to existing allocation
- * @param size New size
- * @return Pointer to reallocated memory, or NULL on failure
- */
 void *realloc(void *ptr, size_t size) {
     (void)ptr;
     (void)size;
