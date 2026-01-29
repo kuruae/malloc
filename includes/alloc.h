@@ -18,6 +18,7 @@ typedef struct s_zone_header {
     struct s_zone_header    *next;
     size_t                  zone_size;
     t_zone_type             type;
+    void                    *break_ptr;
 } __attribute__((aligned(ALIGNMENT))) t_zone_header;
 
 typedef struct s_chunk_header {

@@ -1,4 +1,5 @@
 #include "alloc.h"
+#include <stddef.h>
 
 t_zones g_zones = {NULL, NULL, NULL};
 
@@ -20,6 +21,7 @@ t_zone_header *create_zone(size_t size, t_zone_type type) {
     zone->next = NULL;
     zone->zone_size = size;
     zone->type = type;
+    zone->break_ptr = (char *)zone + sizeof(t_zone_header);
 
     return zone;
 }
@@ -59,4 +61,23 @@ t_chunk_header *get_chunk_from_ptr(void *ptr) {
     if (!ptr)
         return NULL;
     return (t_chunk_header *)((char *)ptr - sizeof(t_chunk_header));
+}
+
+t_chunk_header *find_free_chunk(t_zone_header *zone, size_t size) {
+    t_chunk_header *it = get_first_chunk(zone);
+    
+    while ( it != NULL && (void *)it < zone->break_ptr) {
+        if (it->free == 1 && it->size >= size)
+            return it;
+        it = (t_chunk_header *)((char *)it + sizeof(t_chunk_header) + it->size);
+    }
+    return NULL;
+}
+
+void *carve_chunk(t_zone_header *zone, size_t size) {
+    size_t needed = size + sizeof(t_chunk_header);
+    
+    if ( (char *)zone->break_ptr + needed <= (char *)zone + zone->zone_size )
+        return NULL;
+    // -> I'll resume after going 0/6 with taliyah mid
 }

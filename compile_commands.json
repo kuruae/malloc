@@ -1,45 +1,977 @@
 [
   {
+    "file": "ft_isalpha.c",
     "arguments": [
-      "/opt/homebrew/opt/llvm/bin/clang",
-      "-Wall",
-      "-Wextra",
+      "cc",
       "-Werror",
-      "-fPIC",
-      "-std=c11",
-      "-I./includes",
-      "-I./libft/includes",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
       "-c",
+      "ft_isalpha.c",
       "-o",
-      "objs/malloc.o",
-      "srcs/malloc.c"
+      "ft_isalpha.o"
     ],
-    "directory": "/Users/enzo/42/post-cc/malloc",
-    "file": "/Users/enzo/42/post-cc/malloc/srcs/malloc.c",
-    "output": "/Users/enzo/42/post-cc/malloc/objs/malloc.o"
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_isalpha.o"
   },
   {
+    "file": "ft_isdigit.c",
     "arguments": [
-      "/opt/homebrew/opt/llvm/bin/clang",
-      "-Wall",
-      "-Wextra",
+      "cc",
       "-Werror",
-      "-fPIC",
-      "-std=c11",
-      "-I./includes",
-      "-I./libft/includes",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
       "-c",
+      "ft_isdigit.c",
       "-o",
-      "objs/size_utils.o",
-      "srcs/size_utils.c"
+      "ft_isdigit.o"
     ],
-    "directory": "/Users/enzo/42/post-cc/malloc",
-    "file": "/Users/enzo/42/post-cc/malloc/srcs/size_utils.c",
-    "output": "/Users/enzo/42/post-cc/malloc/objs/size_utils.o"
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_isdigit.o"
   },
   {
+    "file": "ft_isalnum.c",
     "arguments": [
-      "/opt/homebrew/opt/llvm/bin/clang",
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_isalnum.c",
+      "-o",
+      "ft_isalnum.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_isalnum.o"
+  },
+  {
+    "file": "ft_isascii.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_isascii.c",
+      "-o",
+      "ft_isascii.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_isascii.o"
+  },
+  {
+    "file": "ft_isprint.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_isprint.c",
+      "-o",
+      "ft_isprint.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_isprint.o"
+  },
+  {
+    "file": "ft_isspace.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_isspace.c",
+      "-o",
+      "ft_isspace.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_isspace.o"
+  },
+  {
+    "file": "ft_strlen.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strlen.c",
+      "-o",
+      "ft_strlen.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strlen.o"
+  },
+  {
+    "file": "ft_memset.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_memset.c",
+      "-o",
+      "ft_memset.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_memset.o"
+  },
+  {
+    "file": "ft_bzero.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_bzero.c",
+      "-o",
+      "ft_bzero.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_bzero.o"
+  },
+  {
+    "file": "ft_memcpy.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_memcpy.c",
+      "-o",
+      "ft_memcpy.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_memcpy.o"
+  },
+  {
+    "file": "ft_memmove.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_memmove.c",
+      "-o",
+      "ft_memmove.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_memmove.o"
+  },
+  {
+    "file": "ft_strlcpy.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strlcpy.c",
+      "-o",
+      "ft_strlcpy.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strlcpy.o"
+  },
+  {
+    "file": "ft_strlcat.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strlcat.c",
+      "-o",
+      "ft_strlcat.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strlcat.o"
+  },
+  {
+    "file": "ft_toupper.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_toupper.c",
+      "-o",
+      "ft_toupper.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_toupper.o"
+  },
+  {
+    "file": "ft_tolower.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_tolower.c",
+      "-o",
+      "ft_tolower.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_tolower.o"
+  },
+  {
+    "file": "ft_strchr.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strchr.c",
+      "-o",
+      "ft_strchr.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strchr.o"
+  },
+  {
+    "file": "ft_strrchr.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strrchr.c",
+      "-o",
+      "ft_strrchr.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strrchr.o"
+  },
+  {
+    "file": "ft_strncmp.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strncmp.c",
+      "-o",
+      "ft_strncmp.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strncmp.o"
+  },
+  {
+    "file": "ft_memchr.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_memchr.c",
+      "-o",
+      "ft_memchr.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_memchr.o"
+  },
+  {
+    "file": "ft_memcmp.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_memcmp.c",
+      "-o",
+      "ft_memcmp.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_memcmp.o"
+  },
+  {
+    "file": "ft_strnstr.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strnstr.c",
+      "-o",
+      "ft_strnstr.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strnstr.o"
+  },
+  {
+    "file": "ft_atoi.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_atoi.c",
+      "-o",
+      "ft_atoi.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_atoi.o"
+  },
+  {
+    "file": "ft_atol.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_atol.c",
+      "-o",
+      "ft_atol.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_atol.o"
+  },
+  {
+    "file": "ft_calloc.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_calloc.c",
+      "-o",
+      "ft_calloc.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_calloc.o"
+  },
+  {
+    "file": "ft_strdup.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strdup.c",
+      "-o",
+      "ft_strdup.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strdup.o"
+  },
+  {
+    "file": "ft_substr.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_substr.c",
+      "-o",
+      "ft_substr.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_substr.o"
+  },
+  {
+    "file": "ft_strjoin.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strjoin.c",
+      "-o",
+      "ft_strjoin.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strjoin.o"
+  },
+  {
+    "file": "ft_strjoinch.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strjoinch.c",
+      "-o",
+      "ft_strjoinch.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strjoinch.o"
+  },
+  {
+    "file": "ft_strtrim.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strtrim.c",
+      "-o",
+      "ft_strtrim.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strtrim.o"
+  },
+  {
+    "file": "ft_split.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_split.c",
+      "-o",
+      "ft_split.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_split.o"
+  },
+  {
+    "file": "ft_itoa.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_itoa.c",
+      "-o",
+      "ft_itoa.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_itoa.o"
+  },
+  {
+    "file": "ft_strmapi.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strmapi.c",
+      "-o",
+      "ft_strmapi.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strmapi.o"
+  },
+  {
+    "file": "ft_striteri.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_striteri.c",
+      "-o",
+      "ft_striteri.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_striteri.o"
+  },
+  {
+    "file": "ft_putchar_fd.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_putchar_fd.c",
+      "-o",
+      "ft_putchar_fd.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_putchar_fd.o"
+  },
+  {
+    "file": "ft_putstr_fd.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_putstr_fd.c",
+      "-o",
+      "ft_putstr_fd.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_putstr_fd.o"
+  },
+  {
+    "file": "ft_putendl_fd.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_putendl_fd.c",
+      "-o",
+      "ft_putendl_fd.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_putendl_fd.o"
+  },
+  {
+    "file": "ft_putnbr_fd.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_putnbr_fd.c",
+      "-o",
+      "ft_putnbr_fd.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_putnbr_fd.o"
+  },
+  {
+    "file": "ft_lstnew.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_lstnew.c",
+      "-o",
+      "ft_lstnew.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_lstnew.o"
+  },
+  {
+    "file": "ft_lstadd_front.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_lstadd_front.c",
+      "-o",
+      "ft_lstadd_front.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_lstadd_front.o"
+  },
+  {
+    "file": "ft_lstsize.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_lstsize.c",
+      "-o",
+      "ft_lstsize.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_lstsize.o"
+  },
+  {
+    "file": "ft_lstlast.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_lstlast.c",
+      "-o",
+      "ft_lstlast.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_lstlast.o"
+  },
+  {
+    "file": "ft_lstadd_back.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_lstadd_back.c",
+      "-o",
+      "ft_lstadd_back.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_lstadd_back.o"
+  },
+  {
+    "file": "ft_lstdelone.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_lstdelone.c",
+      "-o",
+      "ft_lstdelone.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_lstdelone.o"
+  },
+  {
+    "file": "ft_lstclear.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_lstclear.c",
+      "-o",
+      "ft_lstclear.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_lstclear.o"
+  },
+  {
+    "file": "ft_lstiter.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_lstiter.c",
+      "-o",
+      "ft_lstiter.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_lstiter.o"
+  },
+  {
+    "file": "ft_lstmap.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_lstmap.c",
+      "-o",
+      "ft_lstmap.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_lstmap.o"
+  },
+  {
+    "file": "ft_free_null.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_free_null.c",
+      "-o",
+      "ft_free_null.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_free_null.o"
+  },
+  {
+    "file": "ft_free_str_array.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_free_str_array.c",
+      "-o",
+      "ft_free_str_array.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_free_str_array.o"
+  },
+  {
+    "file": "ft_is_float.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_is_float.c",
+      "-o",
+      "ft_is_float.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_is_float.o"
+  },
+  {
+    "file": "ft_str_isdigit.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_str_isdigit.c",
+      "-o",
+      "ft_str_isdigit.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_str_isdigit.o"
+  },
+  {
+    "file": "ft_atof.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_atof.c",
+      "-o",
+      "ft_atof.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_atof.o"
+  },
+  {
+    "file": "ft_strcmp.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "ft_strcmp.c",
+      "-o",
+      "ft_strcmp.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "ft_strcmp.o"
+  },
+  {
+    "file": "printf/ft_printf.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "printf/ft_printf.c",
+      "-o",
+      "printf/ft_printf.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "printf/ft_printf.o"
+  },
+  {
+    "file": "printf/ft_printf_chars.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "printf/ft_printf_chars.c",
+      "-o",
+      "printf/ft_printf_chars.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "printf/ft_printf_chars.o"
+  },
+  {
+    "file": "printf/ft_printf_nbrs.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "printf/ft_printf_nbrs.c",
+      "-o",
+      "printf/ft_printf_nbrs.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "printf/ft_printf_nbrs.o"
+  },
+  {
+    "file": "GNL/get_next_line.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "GNL/get_next_line.c",
+      "-o",
+      "GNL/get_next_line.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "GNL/get_next_line.o"
+  },
+  {
+    "file": "GNL/get_next_line_utils.c",
+    "arguments": [
+      "cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-I",
+      "./includes/",
+      "-c",
+      "GNL/get_next_line_utils.c",
+      "-o",
+      "GNL/get_next_line_utils.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc/libft",
+    "output": "GNL/get_next_line_utils.o"
+  },
+  {
+    "file": "srcs/malloc.c",
+    "arguments": [
+      "clang",
       "-Wall",
       "-Wextra",
       "-Werror",
@@ -48,12 +980,49 @@
       "-I./includes",
       "-I./libft/includes",
       "-c",
+      "srcs/malloc.c",
       "-o",
-      "objs/zones.o",
-      "srcs/zones.c"
+      "objs/malloc.o"
     ],
-    "directory": "/Users/enzo/42/post-cc/malloc",
-    "file": "/Users/enzo/42/post-cc/malloc/srcs/zones.c",
-    "output": "/Users/enzo/42/post-cc/malloc/objs/zones.o"
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
+    "output": "objs/malloc.o"
+  },
+  {
+    "file": "srcs/size_utils.c",
+    "arguments": [
+      "clang",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fPIC",
+      "-std=c11",
+      "-I./includes",
+      "-I./libft/includes",
+      "-c",
+      "srcs/size_utils.c",
+      "-o",
+      "objs/size_utils.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
+    "output": "objs/size_utils.o"
+  },
+  {
+    "file": "srcs/zones.c",
+    "arguments": [
+      "clang",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fPIC",
+      "-std=c11",
+      "-I./includes",
+      "-I./libft/includes",
+      "-c",
+      "srcs/zones.c",
+      "-o",
+      "objs/zones.o"
+    ],
+    "directory": "/home/enzo/Prog/42/post-cc/ft_malloc",
+    "output": "objs/zones.o"
   }
 ]

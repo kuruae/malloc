@@ -6,4 +6,5 @@ objs/
 .cache/
 .vscode/
 test_prog
-test.md
+*.md
+!README.md
