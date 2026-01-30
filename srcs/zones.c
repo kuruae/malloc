@@ -1,8 +1,6 @@
 #include "alloc.h"
 #include <stddef.h>
 
-t_zones g_zones = {NULL, NULL, NULL};
-
 // Creates mmap'd zone with specified size and type
 t_zone_header *create_zone(size_t size, t_zone_type type) {
     void *ptr = mmap(

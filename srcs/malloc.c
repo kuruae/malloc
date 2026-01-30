@@ -3,6 +3,8 @@
 #include "size_utils.h"
 #include "zones.h"
 
+t_zones g_zones = {NULL, NULL, NULL};
+
 // Returns total mmap size for large allocation (zone + chunk + data, page-aligned)
 static size_t get_large_alloc_size(size_t size) {
     size_t total = sizeof(t_zone_header) + sizeof(t_chunk_header) + size;
@@ -29,9 +31,35 @@ static void *alloc_large(size_t size) {
     return get_ptr_from_chunk(chunk);
 }
 
-static void *alloc_tiny(size_t size) {
-    (void)size;
+static inline void *try_current_zone(t_zone_header *zone, size_t size) {
+    t_chunk_header *chunk = find_free_chunk(zone, size);
+    
+    if (chunk) {
+        chunk->free = 0;
+        return get_ptr_from_chunk(chunk);
+    }
+    
+    chunk = carve_chunk(zone, size);
+    if (chunk)
+        return get_ptr_from_chunk(chunk);
+    
     return NULL;
+}
+
+static void *alloc_tiny(size_t size) {
+    void *new_chunk;
+    
+    while (g_zones.tiny) {
+        new_chunk = try_current_zone(g_zones.tiny, size);
+        if (new_chunk)
+            return new_chunk;
+        
+        // autre chemin a faire si y'a r de libre
+        //
+        
+        g_zones.tiny = g_zones.tiny->next;
+    }
+   return NULL;
 }
 
 static void *alloc_small(size_t size) {
