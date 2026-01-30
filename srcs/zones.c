@@ -77,7 +77,16 @@ t_chunk_header *find_free_chunk(t_zone_header *zone, size_t size) {
 void *carve_chunk(t_zone_header *zone, size_t size) {
     size_t needed = size + sizeof(t_chunk_header);
     
-    if ( (char *)zone->break_ptr + needed <= (char *)zone + zone->zone_size )
+    if ( (char *)zone->break_ptr + needed > (char *)zone + zone->zone_size )
         return NULL;
-    // -> I'll resume after going 0/6 with taliyah mid
+    
+    t_chunk_header *new_chunk = (t_chunk_header *)zone->break_ptr;
+    
+    new_chunk->next = NULL;
+    new_chunk->size = size;
+    new_chunk->free = 0;
+    
+    zone->break_ptr = (char *)zone->break_ptr + needed;
+    
+    return get_ptr_from_chunk(new_chunk);
 }
