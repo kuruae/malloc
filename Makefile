@@ -62,10 +62,24 @@ clangd: clean
 	@printf "$(GREEN)Done. compile_commands.json ready for clangd.$(RESET)"
 
 test: all
-	@$(CC) tests/main_test.c -L. -lft_malloc -Iincludes -o test_prog
-	@echo "Testing with LD_PRELOAD..."
-	@export LD_LIBRARY_PATH=$$(pwd); \
-	 export LD_PRELOAD=$$(pwd)/libft_malloc.so; \
-	 ./test_prog
+	@if [ -z "$(TESTFILE)" ]; then \
+		echo "$(RED)Usage: make test TESTFILE=path/to/test.c$(RESET)"; \
+		echo "Example: make test TESTFILE=tests/tiny.c"; \
+		exit 1; \
+	fi; \
+	if [ ! -f "$(TESTFILE)" ]; then \
+		echo "$(RED)Error: Test file '$(TESTFILE)' not found$(RESET)"; \
+		exit 1; \
+	fi; \
+	TEST_PROG=$$(basename $(TESTFILE) .c); \
+	echo "$(YELLOW)Compiling test: $(TESTFILE)$(RESET)"; \
+	$(CC) $(TESTFILE) -L. -lft_malloc -Iincludes -o $$TEST_PROG || exit 1; \
+	echo "$(GREEN)Running test with LD_PRELOAD...$(RESET)"; \
+	export LD_LIBRARY_PATH=$$(pwd); \
+	export LD_PRELOAD=$$(pwd)/libft_malloc.so; \
+	./$$TEST_PROG; \
+	TEST_EXIT=$$?; \
+	rm -f $$TEST_PROG; \
+	exit $$TEST_EXIT
 
 .PHONY: all clean fclean re clangd

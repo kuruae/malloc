@@ -93,15 +93,19 @@ static void *alloc_small(size_t size) {
  * @return Pointer to allocated memory, or NULL on failure
  */
 void *malloc(size_t size) {
-    if (size == 0)
-        return NULL;
+	if (size == 0)
+		return NULL;
+	
+	if (size > (size_t)-1 - sizeof(t_zone_header) - sizeof(t_chunk_header))
+		return NULL;
 
-    ft_printf("entered malloc!\n");
-    if (size <= get_tiny_max())
+	if (size <= get_tiny_max())
         return alloc_tiny(size);
-    else if (size <= get_small_max())
+        
+	else if (size <= get_small_max())
         return alloc_small(size);
-    else
+        
+	else
         return alloc_large(size);
 }
 

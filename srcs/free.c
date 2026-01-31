@@ -24,15 +24,27 @@ t_zone_header *find_zone_for_ptr(void *ptr, t_zone_type type) {
 void free(void *ptr) {
     if (!ptr)
         return;
-    
+   
    t_chunk_header *chunk = get_chunk_from_ptr(ptr);
-   if (chunk->size <= get_tiny_max())
-       (void)ptr;
-   if (chunk->size <= get_small_max())
-       (void)ptr;
-   else {
-       t_zone_header *zone = find_zone_for_ptr(ptr, ZONE_LARGE);
+   t_zone_header *zone; 
+   
+   zone = find_zone_for_ptr(ptr, ZONE_TINY);
+   if (zone) {
+       chunk->free = 1;
+       return;
+   }
+   
+   zone = find_zone_for_ptr(ptr, ZONE_SMALL);
+   if (zone) {
+       chunk->free = 1;
+       return;
+   }
+   
+   zone = find_zone_for_ptr(ptr, ZONE_LARGE);
+   if (zone) {
        remove_zone(zone);
        munmap((void *)zone, zone->zone_size);
+       return;
    }
+   
 }
