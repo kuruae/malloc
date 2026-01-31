@@ -6,21 +6,22 @@ Custom malloc implementation using memory zones and mmap. (school project from 4
 
 A dynamic memory allocator that replaces the standard `malloc()`, `free()`, and `realloc()`. Uses a zone-based approach to categorize allocations by size (tiny, small, large) for better memory management.
 
-Currently only large allocations work. Tiny and small zones are still TODO.
+All zone types (tiny, small, large) are implemented and working. `realloc()` is still TODO.
 
 ## How it works
 
 Memory is organized into zones. Each zone is an mmap'd region that contains:
 - A zone header tracking metadata (size, type, next zone in list)
-- One or more chunks of allocated memory
-- Each chunk has a header (size, free status, next chunk)
+- A break pointer marking where unallocated space begins
+- One or more chunks of allocated memory (carved on-demand)
+- Each chunk has a header (size, free status, next chunk pointer)
 
 Three zone types:
-- **TINY**: allocations ≤ page_size/32
-- **SMALL**: allocations ≤ page_size/4  
+- **TINY**: allocations ≤ page_size/32 (shared zones with multiple allocations)
+- **SMALL**: allocations ≤ page_size/4 (shared zones with multiple allocations)
 - **LARGE**: allocations > page_size/4 (each gets its own dedicated zone)
 
-The allocator maintains separate linked lists for each zone type.
+The allocator maintains separate linked lists for each zone type. When allocating, it searches existing zones for free chunks or available space. If none is found, a new zone is created.
 
 ## Implementation details
 
@@ -39,8 +40,14 @@ Then rounded up to page boundary for efficient mmap.
 
 ### Memory layout
 ```
-[zone_header][chunk_header][user_data][chunk_header][user_data]...
+Zone (tiny/small):
+[zone_header][break_ptr→][chunk_header][user_data][chunk_header][user_data]...[free space]
+
+Zone (large):
+[zone_header][chunk_header][user_data]
 ```
+
+Chunks are carved on-demand from unallocated space as allocations are requested. When a chunk is freed (tiny/small), it's marked as available for reuse. Large allocations are immediately unmapped when freed.
 
 Pointers returned to users point to the data section. The chunk header sits right before it, so `free()` can find metadata by subtracting `sizeof(t_chunk_header)`.
 
@@ -71,3 +78,21 @@ Or link directly when compiling:
 ```bash
 gcc your_program.c -L. -lft_malloc
 ```
+
+## Testing
+
+Run individual tests:
+```bash
+make test TESTFILE=tests/test_tiny.c
+make test TESTFILE=tests/test_small.c
+make test TESTFILE=tests/test_free.c
+make test TESTFILE=tests/test_edge_cases.c
+make test TESTFILE=tests/test_failures.c
+```
+
+Run all tests at once:
+```bash
+./tests/run_all_tests.sh
+```
+
+See `tests/README.md` for details on what each test covers.
