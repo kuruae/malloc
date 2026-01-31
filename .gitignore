@@ -5,6 +5,8 @@
 objs/
 .cache/
 .vscode/
-test_prog
+test_*
+main_test
 *.md
 !README.md
+!tests/
