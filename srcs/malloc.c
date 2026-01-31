@@ -31,40 +31,54 @@ static void *alloc_large(size_t size) {
     return get_ptr_from_chunk(chunk);
 }
 
-static inline void *try_current_zone(t_zone_header *zone, size_t size) {
-    t_chunk_header *chunk = find_free_chunk(zone, size);
-    
-    if (chunk) {
-        chunk->free = 0;
-        return get_ptr_from_chunk(chunk);
-    }
-    
-    chunk = carve_chunk(zone, size);
-    if (chunk)
-        return get_ptr_from_chunk(chunk);
-    
-    return NULL;
-}
-
 static void *alloc_tiny(size_t size) {
-    void *new_chunk;
-    
-    while (g_zones.tiny) {
-        new_chunk = try_current_zone(g_zones.tiny, size);
-        if (new_chunk)
-            return new_chunk;
-        
-        // autre chemin a faire si y'a r de libre
-        //
-        
-        g_zones.tiny = g_zones.tiny->next;
-    }
-   return NULL;
+	t_zone_header *zone = g_zones.tiny;
+	
+	while (zone) {
+		t_chunk_header *chunk = find_free_chunk(zone, size);
+		if (chunk) {
+			chunk->free = 0;
+			return get_ptr_from_chunk(chunk);
+		}
+		
+		void *ptr = carve_chunk(zone, size);
+		if (ptr)
+			return ptr;
+		
+		zone = zone->next;
+	}
+	
+	zone = create_zone(get_zone_size(get_tiny_max()), ZONE_TINY);
+	if (!zone)
+		return NULL;
+	
+	add_zone(zone);
+	return carve_chunk(zone, size);
 }
 
 static void *alloc_small(size_t size) {
-    (void)size;
-    return NULL;
+	t_zone_header *zone = g_zones.small;
+	
+	while (zone) {
+		t_chunk_header *chunk = find_free_chunk(zone, size);
+		if (chunk) {
+			chunk->free = 0;
+			return get_ptr_from_chunk(chunk);
+		}
+		
+		void *ptr = carve_chunk(zone, size);
+		if (ptr)
+			return ptr;
+		
+		zone = zone->next;
+	}
+	
+	zone = create_zone(get_zone_size(get_small_max()), ZONE_SMALL);
+	if (!zone)
+		return NULL;
+	
+	add_zone(zone);
+	return carve_chunk(zone, size);
 }
 
 /**
@@ -89,11 +103,6 @@ void *malloc(size_t size) {
         return alloc_small(size);
     else
         return alloc_large(size);
-}
-
-void free(void *ptr) {
-    (void)ptr;
-    // TODO
 }
 
 void *realloc(void *ptr, size_t size) {

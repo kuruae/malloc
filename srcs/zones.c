@@ -29,17 +29,40 @@ void add_zone(t_zone_header *zone) {
     if (!zone)
         return;
 
-    t_zone_header **list = NULL;
+    t_zone_header **curr = NULL;
 
     if (zone->type == ZONE_TINY)
-        list = &g_zones.tiny;
+        curr = &g_zones.tiny;
     else if (zone->type == ZONE_SMALL)
-        list = &g_zones.small;
+        curr = &g_zones.small;
     else
-        list = &g_zones.large;
+        curr = &g_zones.large;
 
-    zone->next = *list;
-    *list = zone;
+    zone->next = *curr;
+    *curr = zone;
+}
+
+void remove_zone(t_zone_header *zone_to_remove) {
+    if (!zone_to_remove)
+        return;
+
+    t_zone_header **curr;
+
+    if (zone_to_remove->type == ZONE_TINY)
+        curr = &g_zones.tiny;
+    else if (zone_to_remove->type == ZONE_SMALL)
+        curr = &g_zones.small;
+    else
+        curr = &g_zones.large;
+
+    while (*curr) {
+        if (*curr == zone_to_remove) {
+            *curr = zone_to_remove->next;
+            zone_to_remove->next = NULL;
+            return;
+        }
+        curr = &((*curr)->next);
+    }
 }
 
 t_chunk_header *get_first_chunk(t_zone_header *zone) {
