@@ -9,4 +9,4 @@ test_*
 main_test
 *.md
 !README.md
-!tests/
+!tests/*

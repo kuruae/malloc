@@ -12,6 +12,8 @@ TESTS=(
     "test_free.c"
     "test_edge_cases.c"
     "test_failures.c"
+    "test_show_alloc_mem.c"
+    "test_realloc.c"
 )
 
 echo -e "${BLUE}================================${NC}"

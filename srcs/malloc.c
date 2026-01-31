@@ -2,6 +2,7 @@
 #include "ft_printf.h"
 #include "size_utils.h"
 #include "zones.h"
+#include <string.h>
 
 t_zones g_zones = {NULL, NULL, NULL};
 
@@ -15,20 +16,22 @@ static size_t get_large_alloc_size(size_t size) {
 
 // Allocates large block in dedicated mmap'd zone
 static void *alloc_large(size_t size) {
-    size_t zone_size = get_large_alloc_size(size);
+	size_t zone_size = get_large_alloc_size(size);
 
-    t_zone_header *zone = create_zone(zone_size, ZONE_LARGE);
-    if (!zone)
-        return NULL;
+	t_zone_header *zone = create_zone(zone_size, ZONE_LARGE);
+	if (!zone)
+		return NULL;
 
-    add_zone(zone);
+	add_zone(zone);
 
-    t_chunk_header *chunk = get_first_chunk(zone);
-    chunk->next = NULL;
-    chunk->size = size;
-    chunk->free = 0;
+	t_chunk_header *chunk = get_first_chunk(zone);
+	chunk->next = NULL;
+	chunk->size = size;
+	chunk->free = 0;
+	
+	zone->break_ptr = (char *)chunk + sizeof(t_chunk_header) + size;
 
-    return get_ptr_from_chunk(chunk);
+	return get_ptr_from_chunk(chunk);
 }
 
 static void *alloc_tiny(size_t size) {
@@ -110,7 +113,25 @@ void *malloc(size_t size) {
 }
 
 void *realloc(void *ptr, size_t size) {
-    (void)ptr;
-    (void)size;
-    return NULL;
+	if (!ptr)
+		return malloc(size);
+	
+	if (size == 0) {
+		free(ptr);
+		return NULL;
+	}
+	
+	t_chunk_header *old_chunk = get_chunk_from_ptr(ptr);
+	size_t old_size = old_chunk->size;
+	
+	void *new_ptr = malloc(size);
+	if (!new_ptr)
+		return NULL;
+	
+	size_t copy_size = (old_size < size) ? old_size : size;
+	memcpy(new_ptr, ptr, copy_size);
+	
+	free(ptr);
+	
+	return new_ptr;
 }
