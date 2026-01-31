@@ -6,7 +6,6 @@ Custom malloc implementation using memory zones and mmap. (school project from 4
 
 A dynamic memory allocator that replaces the standard `malloc()`, `free()`, and `realloc()`. Uses a zone-based approach to categorize allocations by size (tiny, small, large) for better memory management.
 
-All zone types (tiny, small, large) are implemented and working. `realloc()` is still TODO.
 
 ## How it works
 
@@ -22,6 +21,13 @@ Three zone types:
 - **LARGE**: allocations > page_size/4 (each gets its own dedicated zone)
 
 The allocator maintains separate linked lists for each zone type. When allocating, it searches existing zones for free chunks or available space. If none is found, a new zone is created.
+
+## TODO:
+
+- realloc()
+- fragmentation handling
+- thread safety (mutexes)
+- show_alloc_mem() function for debugging
 
 ## Implementation details
 
@@ -58,9 +64,9 @@ All structures use `alignof(max_align_t)` to ensure proper alignment for any typ
 
 ```bash
 make        # builds libft_malloc_<HOSTTYPE>.so and symlinks to libft_malloc.so
-make clean  # removes object files
-make fclean # removes everything
-make re     # rebuild from scratch
+make clean  
+make fclean 
+make re     
 ```
 
 The library is compiled with `-fPIC` and linked as a shared object. It depends on libft (built automatically).
@@ -94,5 +100,3 @@ Run all tests at once:
 ```bash
 ./tests/run_all_tests.sh
 ```
-
-See `tests/README.md` for details on what each test covers.
