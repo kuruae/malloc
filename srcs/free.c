@@ -1,5 +1,6 @@
 #include "alloc.h"
 #include "zones.h"
+#include "chunk_utils.h"
 
 t_zone_header *find_zone_for_ptr(void *ptr, t_zone_type type) {
     t_zone_header *zone;
