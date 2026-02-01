@@ -38,7 +38,8 @@ void free(void *ptr) {
         if (!(zone = find_zone_for_ptr(ptr, ZONE_TINY)) &&
             !(zone = find_zone_for_ptr(ptr, ZONE_SMALL)) &&
             !(zone = find_zone_for_ptr(ptr, ZONE_LARGE))) {
-            return (void)ft_putendl_fd("free(): wild or foreign pointer", 2);
+                ft_putendl_fd("free(): wild or foreign pointer", 2);
+                return;
         }
     
     t_chunk_header *chunk = get_chunk_from_ptr(ptr);
@@ -46,6 +47,7 @@ void free(void *ptr) {
     if (UNLIKELY(chunk->free == 1)) {
         ft_putendl_fd("free(): double free detected", 2);
         return;
+    }
     
     
     if (chunk->zone_type == ZONE_LARGE) {
