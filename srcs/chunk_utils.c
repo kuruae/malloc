@@ -26,7 +26,6 @@ void *carve_chunk(t_zone_header *zone, size_t size) {
 
 	t_chunk_header *new_chunk = (t_chunk_header *)zone->break_ptr;
 
-	new_chunk->next = NULL;
 	new_chunk->size = aligned_size;
 	new_chunk->free = 0;
 	new_chunk->zone_type = zone->type;

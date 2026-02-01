@@ -56,9 +56,9 @@ static size_t show_zone_list(t_zone_header *zone, const char *type) {
 void show_alloc_mem(void) {
 	size_t total = 0;
 
-	total += show_zone_list(g_zones.tiny, "TINY");
-	total += show_zone_list(g_zones.small, "SMALL");
-	total += show_zone_list(g_zones.large, "LARGE");
+	total += show_zone_list(g_thread_zones.tiny, "TINY");
+	total += show_zone_list(g_thread_zones.small, "SMALL");
+	total += show_zone_list(g_thread_zones.large, "LARGE");
 
 	ft_printf("Total : %u bytes\n", (unsigned int)total);
 }

@@ -1,8 +1,8 @@
 #include "alloc.h"
 #include "compiler_attrs.h"
-#include <stddef.h>
 
-t_zones g_zones = {NULL, NULL, NULL};
+__thread t_zones g_thread_zones = {NULL, NULL, NULL};
+t_thread_safety g_thread_safety = {0, PTHREAD_ONCE_INIT};
 
 t_zone_header *create_zone(size_t size, t_zone_type type) {
 	void *ptr = mmap(
@@ -30,11 +30,11 @@ void add_zone(t_zone_header *zone) {
 	t_zone_header **curr = NULL;
 
 	if (zone->type == ZONE_TINY)
-		curr = &g_zones.tiny;
+		curr = &g_thread_zones.tiny;
 	else if (zone->type == ZONE_SMALL)
-		curr = &g_zones.small;
+		curr = &g_thread_zones.small;
 	else
-		curr = &g_zones.large;
+		curr = &g_thread_zones.large;
 
 	zone->next = *curr;
 	*curr = zone;
@@ -44,11 +44,11 @@ void remove_zone(t_zone_header *zone_to_remove) {
 	t_zone_header **curr;
 
 	if (zone_to_remove->type == ZONE_TINY)
-		curr = &g_zones.tiny;
+		curr = &g_thread_zones.tiny;
 	else if (zone_to_remove->type == ZONE_SMALL)
-		curr = &g_zones.small;
+		curr = &g_thread_zones.small;
 	else
-		curr = &g_zones.large;
+		curr = &g_thread_zones.large;
 
 	while (*curr) {
 		if (*curr == zone_to_remove) {

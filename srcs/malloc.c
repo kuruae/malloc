@@ -1,8 +1,9 @@
 #include "alloc.h"
+#include "compiler_attrs.h"
 #include "size_utils.h"
 #include "zones.h"
 #include "chunk_utils.h"
-#include "compiler_attrs.h"
+#include "thread_cleanup.h"
 
 static size_t get_large_alloc_size(size_t size) {
 	size_t total = sizeof(t_zone_header) + sizeof(t_chunk_header) + size;
@@ -21,7 +22,6 @@ static void *alloc_large(size_t size) {
 	add_zone(zone);
 
 	t_chunk_header *chunk = get_first_chunk(zone);
-	chunk->next = NULL;
 	chunk->size = size;
 	chunk->free = 0;
 
@@ -31,7 +31,7 @@ static void *alloc_large(size_t size) {
 }
 
 static void *alloc_tiny(size_t size) {
-	t_zone_header *zone = g_zones.tiny;
+	t_zone_header *zone = g_thread_zones.tiny;
 
 	while (zone) {
 		t_chunk_header *chunk = find_free_chunk(zone, size);
@@ -56,7 +56,7 @@ static void *alloc_tiny(size_t size) {
 }
 
 static void *alloc_small(size_t size) {
-	t_zone_header *zone = g_zones.small;
+	t_zone_header *zone = g_thread_zones.small;
 
 	while (zone) {
 		t_chunk_header *chunk = find_free_chunk(zone, size);
@@ -81,6 +81,12 @@ static void *alloc_small(size_t size) {
 }
 
 void *malloc(size_t size) {
+    static __thread int cleanup_registered = 0;
+    if (UNLIKELY(!cleanup_registered)) {
+        register_thread_cleanup();
+        cleanup_registered = 1;
+    }
+    
 	if (UNLIKELY(size == 0))
 		return NULL;
 
@@ -93,40 +99,4 @@ void *malloc(size_t size) {
 		return alloc_small(size);
 	else
 		return alloc_large(size);
-}
-
-void *realloc(void *ptr, size_t size) {
-	if (!ptr)
-		return malloc(size);
-
-	if (size == 0) {
-		free(ptr);
-		return NULL;
-	}
-
-	t_chunk_header *old_chunk = get_chunk_from_ptr(ptr);
-	size_t old_size = old_chunk->size;
-
-	void *new_ptr = malloc(size);
-	if (!new_ptr)
-		return NULL;
-
-	size_t copy_size = (old_size < size) ? old_size : size;
-	ft_memcpy(new_ptr, ptr, copy_size);
-
-	free(ptr);
-
-	return new_ptr;
-}
-
-void *calloc(size_t nmemb, size_t size) {
-    size_t total = nmemb * size;
-
-    if (nmemb && total / nmemb != size)
-        return NULL;
-
-    void *ptr = malloc(total);
-    if (ptr)
-        ft_memset(ptr, 0, total);
-    return ptr;
 }
