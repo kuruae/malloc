@@ -29,7 +29,8 @@ void *carve_chunk(t_zone_header *zone, size_t size) {
 	new_chunk->next = NULL;
 	new_chunk->size = aligned_size;
 	new_chunk->free = 0;
-
+	new_chunk->zone_type = zone->type;
+	
 	zone->break_ptr = (char *)zone->break_ptr + needed;
 
 	return get_ptr_from_chunk(new_chunk);
