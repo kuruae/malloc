@@ -1,12 +1,6 @@
 #include "alloc.h"
 #include "chunk_utils.h"
 
-// move to next chunk in memory
-static inline t_chunk_header *next_chunk(t_chunk_header *chunk) {
-	return (t_chunk_header *)((char *)chunk + sizeof(t_chunk_header) + chunk->size);
-}
-
-// print all allocated chunks in a single zone, returns bytes printed
 static size_t print_zone_chunks(t_zone_header *zone) {
 	size_t total = 0;
 	t_chunk_header *chunk = get_first_chunk(zone);
@@ -24,7 +18,6 @@ static size_t print_zone_chunks(t_zone_header *zone) {
 	return total;
 }
 
-// check if zone has any allocated chunks
 static int zone_has_allocations(t_zone_header *zone) {
 	t_chunk_header *chunk = get_first_chunk(zone);
 
@@ -37,7 +30,6 @@ static int zone_has_allocations(t_zone_header *zone) {
 	return 0;
 }
 
-// shows all allocated chunks in a zone list and returns total bytes
 static size_t show_zone_list(t_zone_header *zone, const char *type) {
 	size_t total = 0;
 	int zone_type_printed = 0;

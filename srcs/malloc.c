@@ -2,21 +2,20 @@
 #include "size_utils.h"
 #include "zones.h"
 #include "chunk_utils.h"
+#include "compiler_attrs.h"
 
-// Returns total mmap size for large allocation (zone + chunk + data, page-aligned)
 static size_t get_large_alloc_size(size_t size) {
-    size_t total = sizeof(t_zone_header) + sizeof(t_chunk_header) + size;
-    size_t page_size = get_system_page_size();
+	size_t total = sizeof(t_zone_header) + sizeof(t_chunk_header) + size;
+	size_t page_size = get_system_page_size();
 
-    return (total + (page_size - 1)) & ~(page_size - 1);
+	return (total + (page_size - 1)) & ~(page_size - 1);
 }
 
-// Allocates large block in dedicated mmap'd zone
 static void *alloc_large(size_t size) {
 	size_t zone_size = get_large_alloc_size(size);
 
 	t_zone_header *zone = create_zone(zone_size, ZONE_LARGE);
-	if (!zone)
+	if (UNLIKELY(!zone))
 		return NULL;
 
 	add_zone(zone);
@@ -36,20 +35,20 @@ static void *alloc_tiny(size_t size) {
 
 	while (zone) {
 		t_chunk_header *chunk = find_free_chunk(zone, size);
-		if (chunk) {
+		if (LIKELY(chunk != NULL)) {
 			chunk->free = 0;
 			return get_ptr_from_chunk(chunk);
 		}
 
 		void *ptr = carve_chunk(zone, size);
-		if (ptr)
+		if (LIKELY(ptr != NULL))
 			return ptr;
 
 		zone = zone->next;
 	}
 
 	zone = create_zone(get_zone_size(get_tiny_max()), ZONE_TINY);
-	if (!zone)
+	if (UNLIKELY(!zone))
 		return NULL;
 
 	add_zone(zone);
@@ -61,52 +60,39 @@ static void *alloc_small(size_t size) {
 
 	while (zone) {
 		t_chunk_header *chunk = find_free_chunk(zone, size);
-		if (chunk) {
+		if (LIKELY(chunk != NULL)) {
 			chunk->free = 0;
 			return get_ptr_from_chunk(chunk);
 		}
 
 		void *ptr = carve_chunk(zone, size);
-		if (ptr)
+		if (LIKELY(ptr != NULL))
 			return ptr;
 
 		zone = zone->next;
 	}
 
 	zone = create_zone(get_zone_size(get_small_max()), ZONE_SMALL);
-	if (!zone)
+	if (UNLIKELY(!zone))
 		return NULL;
 
 	add_zone(zone);
 	return carve_chunk(zone, size);
 }
 
-/**
- * @brief Main malloc implementation
- *
- * Dispatches to appropriate allocator based on size:
- * - TINY: size <= page_size/32
- * - SMALL: size <= page_size/4
- * - LARGE: size > page_size/4
- *
- * @param size Number of bytes to allocate
- * @return Pointer to allocated memory, or NULL on failure
- */
 void *malloc(size_t size) {
-	if (size == 0)
-	    return NULL;
+	if (UNLIKELY(size == 0))
+		return NULL;
 
-	if (size > (size_t)-1 - sizeof(t_zone_header) - sizeof(t_chunk_header))
-	    return NULL;
+	if (UNLIKELY(size > (size_t)-1 - sizeof(t_zone_header) - sizeof(t_chunk_header)))
+		return NULL;
 
 	if (size <= get_tiny_max())
-	    return alloc_tiny(size);
-
+		return alloc_tiny(size);
 	else if (size <= get_small_max())
-	    return alloc_small(size);
-
+		return alloc_small(size);
 	else
-	    return alloc_large(size);
+		return alloc_large(size);
 }
 
 void *realloc(void *ptr, size_t size) {
