@@ -118,3 +118,15 @@ void *realloc(void *ptr, size_t size) {
 
 	return new_ptr;
 }
+
+void *calloc(size_t nmemb, size_t size) {
+    size_t total = nmemb * size;
+
+    if (nmemb && total / nmemb != size)
+        return NULL;
+
+    void *ptr = malloc(total);
+    if (ptr)
+        ft_memset(ptr, 0, total);
+    return ptr;
+}
