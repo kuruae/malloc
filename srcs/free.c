@@ -22,28 +22,21 @@ t_zone_header *find_zone_for_ptr(const void *ptr, t_zone_type type) {
 	return NULL;
 }
 
-static inline int valid_ptr_check(void *ptr) {
+void free(void *ptr) {
     if (UNLIKELY(!ptr))
-       return 1;
+       return;
 
     if (UNLIKELY((uintptr_t)ptr % ALIGNMENT) != 0) {
         ft_putendl_fd("free(): misaligned pointer in free()", 2);
-        return 1;
+        return;
     }
     
     t_zone_header *zone = NULL;
         if (!(zone = find_zone_for_ptr(ptr, ZONE_TINY)) &&
             !(zone = find_zone_for_ptr(ptr, ZONE_SMALL)) &&
             !(zone = find_zone_for_ptr(ptr, ZONE_LARGE))) {
-                ft_putendl_fd("free(): wild or foreign pointer", 2);
-                return 1;
+            return (void)ft_putendl_fd("free(): wild or foreign pointer", 2);
         }
-   return 0; 
-}
-
-void free(void *ptr) {
-    if (!valid_ptr_check(ptr))
-        return ;
     
     t_chunk_header *chunk = get_chunk_from_ptr(ptr);
 
@@ -56,6 +49,8 @@ void free(void *ptr) {
         t_zone_header *zone = (t_zone_header *)((char *)chunk - sizeof(t_zone_header));
         remove_zone(zone);
         munmap(zone, zone->zone_size);
-    } else
+    } else {
         chunk->free = 1;
+        coalesce_forward(zone, chunk);
+    }
 }

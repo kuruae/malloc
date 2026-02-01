@@ -34,3 +34,20 @@ void *carve_chunk(t_zone_header *zone, size_t size) {
 
 	return get_ptr_from_chunk(new_chunk);
 }
+
+void coalesce_forward(t_zone_header *zone, t_chunk_header *chunk) {
+	if (!zone || !chunk || !chunk->free)
+		return;
+
+	while (1) {
+		t_chunk_header *next = next_chunk(chunk);
+
+		if ((void *)next >= zone->break_ptr)
+			break;
+
+		if (!next->free)
+			break;
+
+		chunk->size += sizeof(t_chunk_header) + next->size;
+	}
+}

@@ -23,5 +23,6 @@ static inline t_chunk_header *next_chunk(t_chunk_header *chunk) {
 
 t_chunk_header  *find_free_chunk(t_zone_header *zone, size_t size) ATTR_HOT;
 void            *carve_chunk(t_zone_header *zone, size_t size) ATTR_HOT;
+void            coalesce_forward(t_zone_header *zone, t_chunk_header *chunk);
 
 #endif
