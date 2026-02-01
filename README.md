@@ -24,10 +24,10 @@ The allocator maintains separate linked lists for each zone type. When allocatin
 
 ## TODO:
 
-- realloc()
 - fragmentation handling
 - thread safety (mutexes)
-- show_alloc_mem() function for debugging
+- ~~show_alloc_mem() function for debugging~~
+- show_alloc_mem_ex() function for more advanced debugging
 
 ## Implementation details
 

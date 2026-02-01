@@ -10,3 +10,4 @@ main_test
 *.md
 !README.md
 !tests/*
+main_test
