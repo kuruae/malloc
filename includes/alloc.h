@@ -1,7 +1,6 @@
 #ifndef ALLOC_H
 #define ALLOC_H
 
-#include <bits/pthreadtypes.h>
 #include <stdalign.h>
 #include <sys/mman.h>
 #include <pthread.h>
@@ -38,8 +37,8 @@ typedef struct s_zones {
 extern __thread t_zones g_thread_zones;
 
 typedef struct s_thread_safety {
-    pthread_key_t cleanup_key;
-    pthread_once_t cleanup_once;
+    pthread_key_t   cleanup_key;
+    pthread_once_t  cleanup_once;
 } t_thread_safety;
 
 void    *malloc(size_t size) ATTR_HOT ATTR_MALLOC;

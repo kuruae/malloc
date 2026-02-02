@@ -24,10 +24,9 @@ The allocator maintains separate linked lists for each zone type. When allocatin
 
 ## TODO:
 
-- fragmentation handling
-- thread safety (mutexes)
 - ~~show_alloc_mem() function for debugging~~
 - show_alloc_mem_ex() function for more advanced debugging
+- env variable to toggle debug output, e.g. MALLOC_DEBUG=1 etc
 
 ## Implementation details
 
@@ -89,11 +88,10 @@ gcc your_program.c -L. -lft_malloc
 
 Run individual tests:
 ```bash
+# make test TeSTFILE=<path_to_test_file>
 make test TESTFILE=tests/test_tiny.c
 make test TESTFILE=tests/test_small.c
-make test TESTFILE=tests/test_free.c
-make test TESTFILE=tests/test_edge_cases.c
-make test TESTFILE=tests/test_failures.c
+...
 ```
 
 Run all tests at once:
