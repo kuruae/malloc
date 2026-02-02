@@ -13,7 +13,7 @@ Memory is organized into zones. Each zone is an mmap'd region that contains:
 - A zone header tracking metadata (size, type, next zone in list)
 - A break pointer marking where unallocated space begins
 - One or more chunks of allocated memory (carved on-demand)
-- Each chunk has a header (size, free status, next chunk pointer)
+- Each chunk has a header (size, free status)
 
 Three zone types:
 - **TINY**: allocations ≤ page_size/32 (shared zones with multiple allocations)
