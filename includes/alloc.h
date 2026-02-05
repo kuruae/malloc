@@ -1,12 +1,21 @@
 #ifndef ALLOC_H
 #define ALLOC_H
 
+#define _DEFAULT_SOURCE
 #include <stdalign.h>
 #include <stdint.h>
 #include <sys/mman.h>
 #include <pthread.h>
 #include "libft.h"
 #include "compiler_attrs.h"
+
+#if defined(MAP_ANONYMOUS)
+    // use MAP_ANONYMOUS
+#elif defined(MAP_ANON)
+    #define MAP_ANONYMOUS MAP_ANON
+#else
+    #error "Neither MAP_ANONYMOUS nor MAP_ANON is defined"
+#endif
 
 #define ALIGNMENT alignof(max_align_t)
 
