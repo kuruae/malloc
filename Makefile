@@ -7,6 +7,17 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+	DYN_LIB_PATH_VAR = DYLD_LIBRARY_PATH
+	DYN_LIB_PRELOAD_VAR = DYLD_INSERT_LIBRARIES
+	PLATFORM_MSG = DYLD_LIBRARY_PATH
+else
+	DYN_LIB_PATH_VAR = LD_LIBRARY_PATH
+	DYN_LIB_PRELOAD_VAR = LD_PRELOAD
+	PLATFORM_MSG = LD_LIBRARY_PATH
+endif
+
 NAME = libft_malloc_$(HOSTTYPE).so
 LINK_NAME = libft_malloc.so
 
@@ -18,7 +29,7 @@ SRC_DIR = srcs
 OBJ_DIR = objs
 LIBFT_PATH = libft
 
-SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
+SRC_FILES = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/ft_fprintf/*.c)
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
 INC_DIRS = $(INC)
@@ -74,10 +85,8 @@ test: all
 	TEST_PROG=$$(basename $(TESTFILE) .c); \
 	echo "$(YELLOW)Compiling test: $(TESTFILE)$(RESET)"; \
 	$(CC) $(TESTFILE) -L. -lft_malloc -Iincludes -o $$TEST_PROG || exit 1; \
-	echo "$(GREEN)Running test with LD_PRELOAD...$(RESET)"; \
-	export LD_LIBRARY_PATH=$$(pwd); \
-	export LD_PRELOAD=$$(pwd)/libft_malloc.so; \
-	./$$TEST_PROG; \
+	echo "$(GREEN)Running test with $(PLATFORM_MSG)...$(RESET)"; \
+	$(DYN_LIB_PATH_VAR)=$$(pwd) ./$$TEST_PROG; \
 	TEST_EXIT=$$?; \
 	rm -f $$TEST_PROG; \
 	exit $$TEST_EXIT

@@ -1,4 +1,5 @@
 #include "env_flags.h"
+#include "ft_fprintf.h"
 #include "libft.h"
 #include <stdint.h>
 #include <stdlib.h>
@@ -46,7 +47,16 @@ t_env_flags *env_flags_singleton() {
   return &instance;
 }
 
-void print_env_flags() {}
+void print_env_flags() {
+  ft_fprintf(1, "M_ALLOC_LOGS: %u\n", env_flags_singleton()->m_alloc_logs);
+  ft_fprintf(1, "M_CHECK_WILD_PTR: %u\n",
+             env_flags_singleton()->m_check_wild_ptr);
+  ft_fprintf(1, "M_HALT_ON_EXIT: %u\n", env_flags_singleton()->m_halt_on_exit);
+  ft_fprintf(1, "M_HALT_ON_ERROR: %u\n",
+             env_flags_singleton()->m_halt_on_error);
+  ft_fprintf(1, "M_FILL_ON_FREE: %u\n", env_flags_singleton()->m_fill_on_free);
+  ft_fprintf(1, "M_COLOR: %u\n", env_flags_singleton()->m_color);
+}
 
 void constructor() {
   ft_putendl_fd("this is a test", 1);

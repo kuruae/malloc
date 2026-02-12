@@ -1,6 +1,6 @@
 #include "ft_fprintf.h"
 
-int parsing_format(int fd, char format, va_list ap) {
+int fparsing_format(int fd, char format, va_list ap) {
   int count;
 
   count = 0;

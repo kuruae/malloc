@@ -1,5 +1,7 @@
 #include "alloc.h"
 #include "chunk_utils.h"
+#include "env_flags.h"
+#include "libft.h"
 #include "zones.h"
 
 t_zone_header *find_zone_for_ptr(const void *ptr, t_zone_type type) {
@@ -47,12 +49,16 @@ void free(void *ptr) {
   }
 
   if (chunk->zone_type == ZONE_LARGE) {
+    if (env_flags_singleton()->m_fill_on_free)
+      ft_bzero(ptr, chunk->size);
     t_zone_header *zone =
         (t_zone_header *)((char *)chunk - sizeof(t_zone_header));
     remove_zone(zone);
     munmap(zone, zone->zone_size);
   } else {
     chunk->free = 1;
+    if (env_flags_singleton()->m_fill_on_free)
+      ft_bzero(ptr, chunk->size);
     coalesce_forward(zone, chunk);
   }
 }

@@ -1,5 +1,5 @@
-#ifndef ENV_FLAGS_H
-#define ENV_FLAGS_H
+#ifndef ENV_FLAG_H
+#define ENV_FLAG_H
 
 #include "alloc.h"
 
@@ -43,6 +43,7 @@ typedef struct s_env_flags {
 } t_env_flags;
 
 void constructor();
+t_env_flags *env_flags_singleton();
 
 // ===== GETTERS
 
