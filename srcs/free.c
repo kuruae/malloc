@@ -35,10 +35,12 @@ void free(void *ptr) {
   }
 
   t_zone_header *zone = NULL;
-  if (!(zone = find_zone_for_ptr(ptr, ZONE_TINY)) &&
-      !(zone = find_zone_for_ptr(ptr, ZONE_SMALL)) &&
-      !(zone = find_zone_for_ptr(ptr, ZONE_LARGE))) {
-    return (void)ft_putendl_fd("free(): wild or foreign pointer", 2);
+  if (env_flags_singleton()->m_check_wild_ptr) {
+    if (!(zone = find_zone_for_ptr(ptr, ZONE_TINY)) &&
+        !(zone = find_zone_for_ptr(ptr, ZONE_SMALL)) &&
+        !(zone = find_zone_for_ptr(ptr, ZONE_LARGE))) {
+      return (void)ft_putendl_fd("free(): wild or foreign pointer", 2);
+    }
   }
 
   t_chunk_header *chunk = get_chunk_from_ptr(ptr);
