@@ -1,5 +1,6 @@
 #include "alloc.h"
 #include "chunk_utils.h"
+#include "color_utils.h"
 #include "env_flags.h"
 #include "libft.h"
 #include "zones.h"
@@ -26,8 +27,10 @@ t_zone_header *find_zone_for_ptr(const void *ptr, t_zone_type type) {
   return NULL;
 }
 
-static void handle_error(const char *msg, uint8_t check_level) {
-  ft_putendl_fd((char *)msg, 2);
+static inline void handle_error(const char *msg, uint8_t check_level) {
+  ft_putstr_fd((char *)color_error(), 2);
+  ft_putstr_fd((char *)msg, 2);
+  ft_putendl_fd((char *)color_reset(), 2);
   if (check_level >= 1)
     abort();
 }
