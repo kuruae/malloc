@@ -23,3 +23,5 @@ RUN apt update && apt install -y \
 ENV DISPLAY=:0
 
 WORKDIR /project
+
+CMD ["fish"]
