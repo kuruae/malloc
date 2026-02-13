@@ -55,5 +55,6 @@ void    *malloc(size_t size) ATTR_HOT ATTR_MALLOC;
 void    free(void *ptr) ATTR_HOT;
 void    *realloc(void *ptr, size_t size) ATTR_HOT ATTR_MALLOC;
 void    show_alloc_mem(void) ATTR_COLD;
+void    show_alloc_mem_ex(void) ATTR_COLD;
 
 #endif

@@ -1,5 +1,6 @@
 #include "alloc.h"
 #include "chunk_utils.h"
+#include "log_utils.h"
 
 void *realloc(void *ptr, size_t size) {
 	if (!ptr)
@@ -21,6 +22,8 @@ void *realloc(void *ptr, size_t size) {
 	ft_memcpy(new_ptr, ptr, copy_size);
 
 	free(ptr);
+	
+	log_realloc(ptr, size, new_ptr);
 
 	return new_ptr;
 }

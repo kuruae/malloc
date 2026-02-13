@@ -11,8 +11,10 @@
  * standard output. 2: same as 1 but also logs the number of times nmap was
  * called and the- total allocated size at the end of the program.
  *
- * M_CHECK_WILD_PTR =   0: turns pointer integrity checks off, making free()
- * faster (up to O(n)) 1: keeps free from reading foreign pointers (default)
+ * M_CHECK_WILD_PTR =   0: O(1) free() - no zone validation, no coalescing
+ *                         (fast but fragments, undefined behavior on wild ptrs)
+ *                      1: O(n) free() - validates pointers, enables coalescing
+ *                         (default, safe mode)
  *
  * M_CHECK_LEVEL    =   0: warn only on errors (default)
  *                      1: abort on serious errors (double-free, wild pointers)

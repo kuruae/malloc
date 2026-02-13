@@ -3,6 +3,7 @@
 #include "color_utils.h"
 #include "env_flags.h"
 #include "libft.h"
+#include "log_utils.h"
 #include "zones.h"
 #include <stdlib.h>
 
@@ -39,22 +40,15 @@ void free(void *ptr) {
   if (UNLIKELY(!ptr))
     return;
 
+  log_free(ptr);
+
   t_env_flags *flags = env_flags_singleton();
   uint8_t check_level = env_get_check_level(flags);
+  int check_wild = env_is_check_wild_ptr(flags);
 
   if (UNLIKELY((uintptr_t)ptr % ALIGNMENT) != 0) {
     handle_error("free(): misaligned pointer in free()", check_level);
     return;
-  }
-
-  t_zone_header *zone = NULL;
-  if (env_is_check_wild_ptr(flags)) {
-    if (!(zone = find_zone_for_ptr(ptr, ZONE_TINY)) &&
-        !(zone = find_zone_for_ptr(ptr, ZONE_SMALL)) &&
-        !(zone = find_zone_for_ptr(ptr, ZONE_LARGE))) {
-      handle_error("free(): wild or foreign pointer", check_level);
-      return;
-    }
   }
 
   t_chunk_header *chunk = get_chunk_from_ptr(ptr);
@@ -67,14 +61,22 @@ void free(void *ptr) {
   if (chunk->zone_type == ZONE_LARGE) {
     if (env_is_fill_on_free(flags))
       ft_bzero(ptr, chunk->size);
-    t_zone_header *zone =
+    t_zone_header *large_zone =
         (t_zone_header *)((char *)chunk - sizeof(t_zone_header));
-    remove_zone(zone);
-    munmap(zone, zone->zone_size);
+    remove_zone(large_zone);
+    munmap(large_zone, large_zone->zone_size);
   } else {
     chunk->free = 1;
     if (env_is_fill_on_free(flags))
       ft_bzero(ptr, chunk->size);
-    coalesce_forward(zone, chunk);
+    
+    if (check_wild) {
+      t_zone_header *zone = find_zone_for_ptr(ptr, chunk->zone_type);
+      if (!zone) {
+        handle_error("free(): wild or foreign pointer", check_level);
+        return;
+      }
+      coalesce_forward(zone, chunk);
+    }
   }
 }

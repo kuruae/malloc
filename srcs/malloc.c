@@ -1,5 +1,6 @@
 #include "alloc.h"
 #include "compiler_attrs.h"
+#include "log_utils.h"
 #include "size_utils.h"
 #include "zones.h"
 #include "chunk_utils.h"
@@ -93,10 +94,14 @@ void *malloc(size_t size) {
 	if (UNLIKELY(size > (size_t)-1 - sizeof(t_zone_header) - sizeof(t_chunk_header)))
 		return NULL;
 
+	void *ptr;
 	if (size <= get_tiny_max())
-		return alloc_tiny(size);
+		ptr = alloc_tiny(size);
 	else if (size <= get_small_max())
-		return alloc_small(size);
+		ptr = alloc_small(size);
 	else
-		return alloc_large(size);
+		ptr = alloc_large(size);
+	
+	log_malloc(ptr, size);
+	return ptr;
 }
