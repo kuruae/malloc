@@ -56,7 +56,7 @@ int	print_base_address(uintptr_t nb, int base)
 	count = 0;
 	baseset = "0123456789abcdef";
 	if (nb >= (uintptr_t)base)
-		count += print_base_digit_lowercase(nb / base, base);
+		count += print_base_address(nb / base, base);
 	count += print_char(baseset[nb % base]);
 	return (count);
 }

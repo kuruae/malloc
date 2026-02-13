@@ -28,6 +28,5 @@ int	print_base_digit_uppercase(long nb, int base);
 int	print_base_digit_lowercase(long nb, int base);
 int	print_base_address(uintptr_t nb, int base);
 int	print_addr(void *ptr);
-int	parsing_format(char op, va_list ap);
 
 #endif

@@ -3,12 +3,14 @@ FROM ubuntu:25.10
 RUN apt update && apt install -y \
     build-essential \
     gdb \
+    sudo \
     libgl1-mesa-dev \
     x11-apps \
     libsdl2-2.0-0 \
     clang \
     lldb \
     lld \
+    freedoom -y \
     llvm \
     llvm-dev \
     llvm-runtime \
@@ -23,3 +25,5 @@ RUN apt update && apt install -y \
 ENV DISPLAY=:0
 
 WORKDIR /project
+
+CMD ["fish"]

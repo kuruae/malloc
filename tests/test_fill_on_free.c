@@ -23,7 +23,7 @@ void print_memory(const char *label, void *ptr, size_t size) {
   printf("\n");
 }
 
-void test_allocation(const char *name, size_t size) {
+void test_allocation(const char *name, size_t size, int is_large) {
   printf("\n=== %s (%zu bytes) ===\n", name, size);
 
   void *ptr = malloc(size);
@@ -37,7 +37,12 @@ void test_allocation(const char *name, size_t size) {
 
   free(ptr);
 
-  print_memory("After free ", ptr, size);
+  // Note: LARGE allocations are immediately unmapped, so we can't read them after free
+  if (!is_large) {
+    print_memory("After free ", ptr, size);
+  } else {
+    printf("After free : (memory unmapped - cannot check)\n");
+  }
 }
 
 int main(void) {
@@ -50,9 +55,9 @@ int main(void) {
     printf("M_FILL_ON_FREE is DISABLED - Expect pattern 0xAA after free\n");
   }
 
-  test_allocation("TINY", 64);
-  test_allocation("SMALL", 512);
-  test_allocation("LARGE", 8192);
+  test_allocation("TINY", 64, 0);
+  test_allocation("SMALL", 512, 0);
+  test_allocation("LARGE", 8192, 1);
 
   printf("\n=== TEST COMPLETED ===\n");
   return 0;

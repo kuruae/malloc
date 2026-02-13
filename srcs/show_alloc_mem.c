@@ -9,7 +9,8 @@ static size_t print_zone_chunks(t_zone_header *zone) {
 		if (!chunk->free) {
 			void *start = get_ptr_from_chunk(chunk);
 			void *end = (char *)start + chunk->size - 1;
-			ft_printf("%p - %p : %u bytes\n", start, end, (unsigned int)chunk->size);
+			unsigned int size = (unsigned int)chunk->size;
+			ft_printf("%p - %p : %u bytes\n", start, end, size);
 			total += chunk->size;
 		}
 		chunk = next_chunk(chunk);
