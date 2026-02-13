@@ -3,6 +3,7 @@
 #include "env_flags.h"
 #include "libft.h"
 #include "zones.h"
+#include <stdlib.h>
 
 t_zone_header *find_zone_for_ptr(const void *ptr, t_zone_type type) {
   t_zone_header *zone;
@@ -25,33 +26,43 @@ t_zone_header *find_zone_for_ptr(const void *ptr, t_zone_type type) {
   return NULL;
 }
 
+static void handle_error(const char *msg, uint8_t check_level) {
+  ft_putendl_fd((char *)msg, 2);
+  if (check_level >= 1)
+    abort();
+}
+
 void free(void *ptr) {
   if (UNLIKELY(!ptr))
     return;
 
+  t_env_flags *flags = env_flags_singleton();
+  uint8_t check_level = env_get_check_level(flags);
+
   if (UNLIKELY((uintptr_t)ptr % ALIGNMENT) != 0) {
-    ft_putendl_fd("free(): misaligned pointer in free()", 2);
+    handle_error("free(): misaligned pointer in free()", check_level);
     return;
   }
 
   t_zone_header *zone = NULL;
-  if (env_flags_singleton()->m_check_wild_ptr) {
+  if (env_is_check_wild_ptr(flags)) {
     if (!(zone = find_zone_for_ptr(ptr, ZONE_TINY)) &&
         !(zone = find_zone_for_ptr(ptr, ZONE_SMALL)) &&
         !(zone = find_zone_for_ptr(ptr, ZONE_LARGE))) {
-      return (void)ft_putendl_fd("free(): wild or foreign pointer", 2);
+      handle_error("free(): wild or foreign pointer", check_level);
+      return;
     }
   }
 
   t_chunk_header *chunk = get_chunk_from_ptr(ptr);
 
   if (UNLIKELY(chunk->free == 1)) {
-    // ft_putendl_fd("free(): double free detected", 2);
+    handle_error("free(): double free detected", check_level);
     return;
   }
 
   if (chunk->zone_type == ZONE_LARGE) {
-    if (env_flags_singleton()->m_fill_on_free)
+    if (env_is_fill_on_free(flags))
       ft_bzero(ptr, chunk->size);
     t_zone_header *zone =
         (t_zone_header *)((char *)chunk - sizeof(t_zone_header));
@@ -59,7 +70,7 @@ void free(void *ptr) {
     munmap(zone, zone->zone_size);
   } else {
     chunk->free = 1;
-    if (env_flags_singleton()->m_fill_on_free)
+    if (env_is_fill_on_free(flags))
       ft_bzero(ptr, chunk->size);
     coalesce_forward(zone, chunk);
   }
